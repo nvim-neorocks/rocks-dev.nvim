@@ -1,0 +1,42 @@
+name: Push to Luarocks
+
+on:
+  push:
+    tags:
+      - '*'
+  release:
+    types:
+      - created
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  luarocks-upload:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required to count the commits
+      - name: Get Version
+        run: echo "LUAROCKS_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rustflags: ""
+      - name: LuaRocks Upload
+        uses: nvim-neorocks/luarocks-tag-release@v5
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          version: ${{ env.LUAROCKS_VERSION }}
+          test_interpreters: ""
+          dependencies: |
+            rocks.nvim >= 2.4.0
+          labels: |
+            neovim
+          detailed_description: |
+            rocks-dev.nvim is a rocks.nvim utility module, serving as a swiss army knife
+            for developing and testing new rocks.nvim extensions.
+
+            Features:
+            - Install plugins from the local filesystem
