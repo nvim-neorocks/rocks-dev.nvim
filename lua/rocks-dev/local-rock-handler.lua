@@ -8,7 +8,8 @@ local rock_handler = {}
 ---@param rock RockSpec
 function rock_handler.get_sync_callback(rock)
     if rock.dir then
-        return function(...)
+        return function()
+            return operations.prune(rock.name)
         end
     end
 end
