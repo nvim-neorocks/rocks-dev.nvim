@@ -32,6 +32,7 @@ jobs:
           test_interpreters: ""
           dependencies: |
             rocks.nvim >= 2.4.0
+            nvim-nio
           labels: |
             neovim
           detailed_description: |
