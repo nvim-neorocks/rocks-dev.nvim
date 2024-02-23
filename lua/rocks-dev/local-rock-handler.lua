@@ -26,7 +26,6 @@ function rock_handler.get_sync_callback(rock)
     end
 end
 
-function rock_handler.get_prune_callback()
-end
+function rock_handler.get_prune_callback() end
 
 return rock_handler
