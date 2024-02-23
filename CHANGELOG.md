@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.1.0...v1.1.1) (2024-02-23)
+
+
+### Bug Fixes
+
+* error when attempting to remove installed rock ([debd2c6](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/debd2c684af22294ae72c68aaaf29fa05f36ae31))
+
 ## [1.1.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.0.0...v1.1.0) (2023-12-26)
 
 
