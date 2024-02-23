@@ -1,18 +1,24 @@
----@alias rock_name string
----@class RockSpec: { name: rock_name, version?: string, [string]: any }
-
 local api = require("rocks.api")
+local nio = require("nio")
 local operations = require("rocks.operations")
 
 local rock_handler = {}
 
+---@class DevRockSpec: RockSpec
+---@field name string Name of the plugin.
+---@field dir string
+
 ---@param rock RockSpec
+---@return async fun(report_progress: fun(message: string), report_error: fun(message: string)) | nil
 function rock_handler.get_sync_callback(rock)
     if rock.dir then
-        return function(report_progress, report_error)
+        ---@cast rock DevRockSpec
+        ---@param report_progress fun(message: string)
+        ---@param report_error fun(message: string)
+        return nio.create(function(report_progress, report_error)
             api.query_installed_rocks(function(rocks)
                 if rocks[rock.name] then
-                    local ok = pcall(operations.remove(rock.name, report_progress).wait)
+                    local ok = pcall(operations.remove(rock.name).wait)
 
                     if not ok then
                         report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
@@ -22,7 +28,7 @@ function rock_handler.get_sync_callback(rock)
                     report_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
                 end
             end)
-        end
+        end, 2)
     end
 end
 
