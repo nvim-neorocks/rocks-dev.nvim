@@ -1,6 +1,4 @@
-local ok, rocks = pcall(require, "rocks.api")
-
-assert(ok, rocks)
+local rocks = require("rocks.api")
 
 local rocks_dev = {}
 
@@ -15,6 +13,10 @@ function rocks_dev.setup(user_configuration)
         end
 
         vim.opt.runtimepath:append(vim.fn.expand(data.dir))
+
+        -- NOTE: We can't support `opt` for dev plugins,
+        -- as it doesn't integrate with `:Rocks packadd`
+        rocks.source_runtime_dir(data.dir)
 
         ::continue::
     end
