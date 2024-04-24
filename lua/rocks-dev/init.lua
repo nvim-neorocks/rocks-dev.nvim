@@ -16,7 +16,7 @@ function rocks_dev.setup(user_configuration)
 
         -- NOTE: We can't support `opt` for dev plugins,
         -- as it doesn't integrate with `:Rocks packadd`
-        rocks.source_runtime_dir(data.dir)
+        require("rtp_nvim").source_runtime_dir(data.dir)
 
         ::continue::
     end

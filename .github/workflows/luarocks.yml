@@ -33,6 +33,7 @@ jobs:
           dependencies: |
             rocks.nvim >= 2.10.0
             nvim-nio
+            rtp.nvim
           labels: |
             neovim
           detailed_description: |

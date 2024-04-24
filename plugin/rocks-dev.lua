@@ -6,6 +6,10 @@ Example rocks.toml:
 ```
 --]]
 
+if vim.g.rocks_dev_nvim_did_setup then
+    return
+end
+
 local ok, api = pcall(require, "rocks.api")
 
 if not ok then
@@ -16,3 +20,5 @@ end
 local user_configuration = api.get_rocks_toml()
 
 require("rocks-dev").setup(user_configuration)
+
+vim.g.rocks_dev_nvim_did_setup = true
