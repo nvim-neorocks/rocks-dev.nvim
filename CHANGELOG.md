@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.1.2...v1.2.0) (2024-04-25)
+
+
+### Features
+
+* use rtp.nvim to source plugin directories ([#9](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/9)) ([c7bf5f9](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/c7bf5f916e9adab3c1e53eb5e6a6a15612e4ed7c))
+
 ## [1.1.2](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.1.1...v1.1.2) (2024-02-29)
 
 
