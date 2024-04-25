@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.0...v1.2.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* proper function name in `rtp.nvim` call ([#12](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/12)) ([4799436](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/4799436f301b1cd38842ef2f4c84532299627cc0))
+
 ## [1.2.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.1.2...v1.2.0) (2024-04-25)
 
 
