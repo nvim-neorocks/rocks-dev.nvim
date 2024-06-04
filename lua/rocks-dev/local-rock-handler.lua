@@ -1,6 +1,9 @@
 local api = require("rocks.api")
 local nio = require("nio")
-local operations = require("rocks.operations")
+
+--- HACK: This is not part of the public rocks.nvim API!
+--- Instead of accessing this directly, we should expose it via rocks.api
+local operations = require("rocks.operations.helpers")
 
 local rock_handler = {}
 
