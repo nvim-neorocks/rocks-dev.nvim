@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.1...v1.2.2) (2024-06-04)
+
+
+### Bug Fixes
+
+* update rocks.nvim module ([65f4ab6](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/65f4ab611925990e98fc1d8a3c46a198ce4d8e16))
+
 ## [1.2.1](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.0...v1.2.1) (2024-04-25)
 
 
