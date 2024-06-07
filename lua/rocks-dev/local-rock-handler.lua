@@ -21,7 +21,7 @@ function rock_handler.get_sync_callback(rock)
         return nio.create(function(report_progress, report_error)
             api.query_installed_rocks(function(rocks)
                 if rocks[rock.name] then
-                    local ok = pcall(operations.remove(rock.name).wait)
+                    local ok = pcall(nio.create(operations.remove(rock.name).wait))
 
                     if not ok then
                         report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
