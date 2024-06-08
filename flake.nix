@@ -9,7 +9,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
 
-    rocks-nvim-input.url = "github:nvim-neorocks/rocks.nvim";
+    rocks-nvim-flake = {
+      url = "github:nvim-neorocks/rocks.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     neorocks.url = "github:nvim-neorocks/neorocks";
 
@@ -26,7 +29,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    rocks-nvim-input,
+    rocks-nvim-flake,
     neorocks,
     gen-luarc,
     flake-parts,
@@ -51,7 +54,7 @@
           overlays = [
             neorocks.overlays.default
             gen-luarc.overlays.default
-            rocks-nvim-input.overlays.default
+            rocks-nvim-flake.overlays.default
           ];
         };
 
