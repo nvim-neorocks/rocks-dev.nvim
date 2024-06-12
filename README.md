@@ -27,7 +27,7 @@
 
 ## :star2: Summary
 
-`rocks-dev.nvim` extends [`rocks.nvim`](https://github.com/nvim-neorocks/rocks-dev.nvim)
+`rocks-dev.nvim` extends [`rocks.nvim`](https://github.com/nvim-neorocks/rocks.nvim)
 with the ability to install dev plugins locally.
 
 ## :hammer: Installation
