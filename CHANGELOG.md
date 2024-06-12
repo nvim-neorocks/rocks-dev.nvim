@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.2...v1.2.3) (2024-06-12)
+
+
+### Bug Fixes
+
+* remove local rock outside of sync query_installed_rocks callback ([#21](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/21)) ([3ee5e96](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/3ee5e96d40c52bff4432a8cfcdbce61a1135bdd1))
+
 ## [1.2.2](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.1...v1.2.2) (2024-06-04)
 
 
