@@ -19,25 +19,24 @@ function rock_handler.get_sync_callback(rock)
         ---@param report_progress fun(message: string)
         ---@param report_error fun(message: string)
         return nio.create(function(report_progress, report_error)
-            local event = nio.control.event()
-            local remove_local_rock = false
-
+            local future = nio.control.future()
             api.query_installed_rocks(function(rocks)
                 if rocks[rock.name] then
-                    remove_local_rock = true
+                    future.set(true)
+                else
+                    future.set(false)
                 end
-                event.set()
             end)
 
-            event.wait()
+            local remove_local_rock = future.wait()
 
             if remove_local_rock then
-                 local ok = pcall(nio.create(operations.remove(rock.name).wait))
-                 if not ok then
-                     report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
-                     return
-                 end
-                 report_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
+                local ok = pcall(nio.create(operations.remove(rock.name).wait))
+                if not ok then
+                    report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
+                    return
+                end
+                report_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
             end
         end, 2)
     end
