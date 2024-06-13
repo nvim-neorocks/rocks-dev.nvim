@@ -12,7 +12,10 @@ function rocks_dev.setup(user_configuration)
             goto continue
         end
 
-        vim.opt.runtimepath:append(vim.fn.expand(data.dir))
+        local directory = vim.fs.normalize(data.dir)
+
+        vim.opt.runtimepath:append(directory)
+        package.path = package.path .. ";" .. (directory .. "/lua/?.lua") .. ";" .. (directory .. "/lua/?/init.lua")
 
         -- NOTE: We can't support `opt` for dev plugins,
         -- as it doesn't integrate with `:Rocks packadd`
