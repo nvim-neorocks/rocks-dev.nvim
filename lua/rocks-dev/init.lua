@@ -8,17 +8,13 @@ function rocks_dev.setup(user_configuration)
     end
 
     for _, data in pairs(user_configuration.plugins or {}) do
-        if not data.dir then
-            goto continue
+        if data.dir then
+            vim.opt.runtimepath:append(vim.fn.expand(data.dir))
+
+            -- NOTE: We can't support `opt` for dev plugins,
+            -- as it doesn't integrate with `:Rocks packadd`
+            require("rtp_nvim").source_rtp_dir(vim.fn.expand(data.dir))
         end
-
-        vim.opt.runtimepath:append(vim.fn.expand(data.dir))
-
-        -- NOTE: We can't support `opt` for dev plugins,
-        -- as it doesn't integrate with `:Rocks packadd`
-        require("rtp_nvim").source_rtp_dir(data.dir)
-
-        ::continue::
     end
 end
 

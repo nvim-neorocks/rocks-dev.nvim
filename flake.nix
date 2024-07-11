@@ -91,7 +91,7 @@
           };
         };
 
-        devShell = pkgs.mkShell {
+        devShell = pkgs.integration-nightly.overrideAttrs (oa: {
           name = "rocks-dev.nvim devShell";
           shellHook = ''
             ${pre-commit-check.shellHook}
@@ -101,8 +101,11 @@
             self.checks.${system}.pre-commit-check.enabledPackages
             ++ (with pkgs; [
               lua-language-server
-            ]);
-        };
+            ])
+            ++ oa.buildInputs
+            ++ oa.propagatedBuildInputs;
+          doCheck = false;
+        });
       in {
         devShells = {
           default = devShell;
@@ -118,6 +121,11 @@
           inherit
             pre-commit-check
             type-check-nightly
+            ;
+          inherit
+            (pkgs)
+            integration-nightly
+            integration-stable
             ;
         };
       };

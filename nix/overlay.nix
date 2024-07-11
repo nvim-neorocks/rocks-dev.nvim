@@ -41,7 +41,10 @@
       viAlias = false;
       vimAlias = false;
       plugins = [
-        final.vimPlugins.rocks-config-nvim
+        {
+          plugin = final.vimPlugins.rocks-dev-nvim;
+          opt = true;
+        }
       ];
     };
   in
@@ -92,6 +95,31 @@
           # rocks
         ];
     });
+
+  mkNeorocksTest = name: nvim:
+    with final;
+      neorocksTest {
+        inherit name;
+        pname = "rocks-dev.nvim";
+        src = self;
+        neovim = nvim;
+        luaPackages = ps:
+          with ps; [
+            rocks-nvim
+            rtp-nvim
+          ];
+
+        extraPackages = [
+          wget
+          git
+          cacert
+        ];
+
+        preCheck = ''
+          # Neovim expects to be able to create log files, etc.
+          export HOME=$(realpath .)
+        '';
+      };
 in {
   inherit
     lua5_1
@@ -112,4 +140,7 @@ in {
     };
 
   rocks-dev-nvim = luajitPackages.rocks-dev-nvim;
+
+  integration-stable = mkNeorocksTest "integration-stable" final.neovim;
+  integration-nightly = mkNeorocksTest "integration-nightly" final.neovim-nightly;
 }
