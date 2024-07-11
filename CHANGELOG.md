@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.3...v1.2.4) (2024-07-11)
+
+
+### Bug Fixes
+
+* plugins with `HOME` alias (`~`) in `dir` not sourced ([#24](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/24)) ([8836235](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/88362352a0e0e4ff3bfddf84cbac2b256485674c))
+
 ## [1.2.3](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.2...v1.2.3) (2024-06-12)
 
 
