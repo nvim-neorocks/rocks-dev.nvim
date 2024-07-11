@@ -8,7 +8,6 @@
     rocks-nvim = rocks-nvim-flake.packages.${final.system}.rocks-nvim;
   in {
     inherit rocks-nvim;
-    luarocks-rock = rocks-nvim-flake.packages.${final.system}.luarocks-rock;
     rocks-dev-nvim = luaself.callPackage ({
       luaOlder,
       buildLuarocksPackage,
@@ -41,11 +40,12 @@
       withPython3 = true;
       viAlias = false;
       vimAlias = false;
-      # plugins = [ final.vimPlugins.rocks-nvim ];
-      extraLuaPackages = ps: [ps.rocks-nvim];
+      plugins = [
+        final.vimPlugins.rocks-config-nvim
+      ];
     };
   in
-    final.wrapNeovimUnstable final.neovim-nightly (neovimConfig
+    (final.wrapNeovimUnstable final.neovim-nightly (neovimConfig
       // {
         luaRcContent =
           /*
@@ -55,7 +55,7 @@
             -- Copied from installer.lua
             local rocks_config = {
                 rocks_path = vim.fn.stdpath("data") .. "/rocks",
-                luarocks_binary = "${final.lua51Packages.luarocks-rock}/bin/luarocks",
+                luarocks_binary = "${final.luajitPackages.luarocks}/bin/luarocks",
             }
 
             vim.g.rocks_nvim = rocks_config
@@ -77,14 +77,21 @@
             package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
 
             vim.opt.runtimepath:append(vim.fs.joinpath("${rocks}", "rocks.nvim-scm-1-rocks", "rocks.nvim", "*"))
-            vim.opt.runtimepath:append(vim.fs.joinpath("${rocks-dev}", "rocks-dev.nvim-scm-1-rocks", "rocks-dev.nvim", "*"))
           '';
         wrapRc = true;
         wrapperArgs =
           final.lib.escapeShellArgs neovimConfig.wrapperArgs
           + " "
           + ''--set NVIM_APPNAME "nvimrocks"'';
-      });
+      }))
+    .overrideAttrs (oa: {
+      nativeBuildInputs =
+        oa.nativeBuildInputs
+        ++ [
+          final.luajit.pkgs.wrapLua
+          # rocks
+        ];
+    });
 in {
   inherit
     lua5_1
@@ -104,5 +111,5 @@ in {
       };
     };
 
-  rocks-dev-nvim = lua51Packages.rocks-dev-nvim;
+  rocks-dev-nvim = luajitPackages.rocks-dev-nvim;
 }

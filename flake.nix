@@ -61,7 +61,6 @@
 
         luarc = pkgs.mk-luarc {
           nvim = pkgs.neovim-nightly;
-          neodev-types = "nightly";
           plugins = with pkgs.lua51Packages; [
             rocks-nvim
             nvim-nio
