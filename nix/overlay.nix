@@ -43,7 +43,7 @@
       plugins = [
         {
           plugin = final.vimPlugins.rocks-dev-nvim;
-          opt = true;
+          optional = true;
         }
       ];
     };
