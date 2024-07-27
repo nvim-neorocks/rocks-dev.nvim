@@ -38,12 +38,25 @@ and you are good to go!
 ## :books: Usage
 
 With this extension, you can add a `dir` field table to plugins in your `rocks.toml`,
-for example
+for example:
 
 ```toml
 [plugins."sweetie.nvim"]
 dir = "~/git/nvim/sweetie.nvim"
 ```
+
+This extension also supports `dev.path`, which allows you to provide the path to where local plugins
+are stored. You can tell rocks-dev to load a plugin from that path with `dev = true`, for example:
+
+```toml
+[dev]
+path = "~/Projects"
+
+[plugins]
+"sweetie.nvim" = { dev = true }
+```
+
+When both `dir` and `dev = true` are present, `dir` gets priority.
 
 ## :book: License
 
