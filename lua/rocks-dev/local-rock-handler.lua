@@ -14,7 +14,8 @@ local rock_handler = {}
 ---@param rock RockSpec
 ---@return async fun(report_progress: fun(message: string), report_error: fun(message: string)) | nil
 function rock_handler.get_sync_callback(rock)
-    if rock.dir then
+    local user_configuration = api.get_rocks_toml()
+    if rock.dir or (rock.dev and user_configuration.dev.path) then
         ---@cast rock DevRockSpec
         ---@param report_progress fun(message: string)
         ---@param report_error fun(message: string)
