@@ -18,6 +18,7 @@ if not ok then
 end
 
 local user_configuration = api.get_rocks_toml()
+---@cast user_configuration rocks-dev.RocksToml
 
 require("rocks-dev").setup(user_configuration)
 
