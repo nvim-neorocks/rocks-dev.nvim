@@ -12,14 +12,14 @@ local rock_handler = {}
 ---@field dir string
 
 ---@param rock RockSpec
----@return async fun(report_progress: fun(message: string), report_error: fun(message: string)) | nil
+---@return async fun(on_progress: fun(message: string), on_error: fun(message: string)) | nil
 function rock_handler.get_sync_callback(rock)
     local user_configuration = api.get_rocks_toml()
     if rock.dir or (rock.dev and user_configuration.dev.path) then
         ---@cast rock DevRockSpec
-        ---@param report_progress fun(message: string)
-        ---@param report_error fun(message: string)
-        return nio.create(function(report_progress, report_error)
+        ---@param on_progress fun(message: string)
+        ---@param on_error fun(message: string)
+        return nio.create(function(on_progress, on_error)
             local future = nio.control.future()
             api.query_installed_rocks(function(rocks)
                 if rocks[rock.name] then
@@ -34,10 +34,10 @@ function rock_handler.get_sync_callback(rock)
             if remove_local_rock then
                 local ok = pcall(nio.create(operations.remove(rock.name).wait))
                 if not ok then
-                    report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
+                    on_error(("rocks-dev: Failed to remove %s"):format(rock.name))
                     return
                 end
-                report_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
+                on_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
             end
         end, 2)
     end
