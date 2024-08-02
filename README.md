@@ -58,6 +58,11 @@ path = "~/Projects"
 
 When both `dir` and `dev = true` are present, `dir` gets priority.
 
+## :electric_plug: `rocks-config` interoperability
+
+You can use [`rocks-config.nvim >= 2.0.0`](https://github.com/nvim-neorocks/rocks-config.nvim) 
+to configure `dev` plugins, however, it does not currently work with [bundles](https://github.com/nvim-neorocks/rocks-config.nvim?tab=readme-ov-file#plugin-bundles).
+
 ## :book: License
 
 `rocks-dev.nvim` is licensed under [GPLv3](./LICENSE).
