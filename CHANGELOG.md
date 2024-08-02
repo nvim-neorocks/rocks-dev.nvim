@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.3.0...v1.4.0) (2024-08-02)
+
+
+### Features
+
+* basic rocks-config.nvim interoperability ([#30](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/30)) ([e2a2e23](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/e2a2e23befd4ef433942d8367726b2f68863039a))
+
 ## [1.3.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.2.4...v1.3.0) (2024-07-28)
 
 
