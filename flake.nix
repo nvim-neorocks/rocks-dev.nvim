@@ -10,7 +10,7 @@
     nixpkgs.url = "github:nixos/nixpkgs";
 
     rocks-nvim-flake = {
-      url = "github:nvim-neorocks/rocks.nvim";
+      url = "github:nvim-neorocks/rocks.nvim/dummy-rocks";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,7 +62,7 @@
         luarc = pkgs.mk-luarc {
           nvim = pkgs.neovim-nightly;
           plugins = with pkgs.lua51Packages; [
-            rocks-nvim
+            inputs.rocks-nvim-flake.packages.${pkgs.system}.rocks-nvim
             nvim-nio
           ];
           disabled-diagnostics = [

@@ -1,45 +1,50 @@
 local api = require("rocks.api")
 local nio = require("nio")
 
---- HACK: This is not part of the public rocks.nvim API!
---- Instead of accessing this directly, we should expose it via rocks.api
-local operations = require("rocks.operations.helpers")
-
 local rock_handler = {}
 
 ---@class DevRockSpec: RockSpec
 ---@field name string Name of the plugin.
 ---@field dir string
 
+local ROCKS_DEV_VERSION = "rocksdev"
+
 ---@param rock RockSpec
----@return async fun(report_progress: fun(message: string), report_error: fun(message: string)) | nil
+---@return async fun(on_progress: fun(message: string), on_error: fun(message: string), on_success?: fun(opts: rock_handler.on_success.Opts)) | nil
 function rock_handler.get_sync_callback(rock)
     local user_configuration = api.get_rocks_toml()
     if rock.dir or (rock.dev and user_configuration.dev.path) then
         ---@cast rock DevRockSpec
-        ---@param report_progress fun(message: string)
-        ---@param report_error fun(message: string)
-        return nio.create(function(report_progress, report_error)
+        ---@param on_progress fun(message: string)
+        ---@param _ fun(message: string) on_error
+        ---@param on_success? fun(opts: rock_handler.on_success.Opts)
+        return nio.create(function(on_progress, _, on_success)
             local future = nio.control.future()
             api.query_installed_rocks(function(rocks)
-                if rocks[rock.name] then
+                local installed_rock = rocks[rock.name]
+                if installed_rock and installed_rock.version ~= ROCKS_DEV_VERSION then
                     future.set(true)
                 else
                     future.set(false)
                 end
             end)
 
-            local remove_local_rock = future.wait()
+            local hotswapped = future.wait()
 
-            if remove_local_rock then
-                local ok = pcall(nio.create(operations.remove(rock.name).wait))
-                if not ok then
-                    report_error(("rocks-dev: Failed to remove %s"):format(rock.name))
-                    return
-                end
-                report_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
+            if type(on_success) == "function" then
+                on_success({
+                    action = "install",
+                    rock = {
+                        name = rock.name,
+                        version = ROCKS_DEV_VERSION,
+                    },
+                })
             end
-        end, 2)
+
+            if hotswapped then
+                on_progress(("rocks-dev: Hotswapped %s"):format(rock.name))
+            end
+        end, 3)
     end
 end
 
