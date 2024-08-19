@@ -22,6 +22,8 @@ function rocks_dev.setup(user_configuration)
         return
     end
 
+    log.trace("rocks-dev setup")
+
     local has_rocks_config, rocks_config = pcall(require, "rocks-config")
     local config_hook = has_rocks_config and type(rocks_config.configure) == "function" and rocks_config.configure
         or function(_) end
