@@ -29,6 +29,7 @@ function rocks_dev.setup(user_configuration)
         or function(_) end
 
     local dev_path = user_configuration.dev and user_configuration.dev.path
+    local errors_found = false
 
     for _, rock_spec in pairs(user_configuration.plugins or {}) do
         ---@cast rock_spec rocks-dev.RockSpec
@@ -41,7 +42,8 @@ function rocks_dev.setup(user_configuration)
         if path then
             vim.opt.runtimepath:append(path)
             if vim.fn.isdirectory(path) == 0 then
-                log.warn(rock_spec.name.. " dir value '"..path.."' is not a directory")
+                log.warn(rock_spec.name .. " dir value '" .. path .. "' is not a directory")
+                errors_found = true
             end
             config_hook(rock_spec.name)
 
@@ -49,6 +51,10 @@ function rocks_dev.setup(user_configuration)
             -- as it doesn't integrate with `:packadd`
             require("rtp_nvim").source_rtp_dir(path)
         end
+    end
+
+    if errors_found then
+        vim.notify("Issues while loading rocks-dev configs. Run :Rocks log for more info.", vim.log.levels.WARN)
     end
 end
 
