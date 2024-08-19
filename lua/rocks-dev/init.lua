@@ -1,4 +1,5 @@
 local rocks = require("rocks.api")
+local log = require("rocks.log")
 
 local rocks_dev = {}
 
@@ -37,6 +38,9 @@ function rocks_dev.setup(user_configuration)
         end
         if path then
             vim.opt.runtimepath:append(path)
+            if vim.fn.isdirectory(path) == 0 then
+                log.warn(rock_spec.name.. " dir value '"..path.."' is not a directory")
+            end
             config_hook(rock_spec.name)
 
             -- NOTE: We can't support `opt` for dev plugins,
