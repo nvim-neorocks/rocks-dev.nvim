@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.4.0...v1.5.0) (2024-08-19)
+
+
+### Features
+
+* warn about wrong 'dir' values ([#35](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/35)) ([84bbfbf](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/84bbfbf51cee3cbdeeea5444b6a95908d56473e3))
+
 ## [1.4.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.3.0...v1.4.0) (2024-08-02)
 
 
