@@ -54,7 +54,7 @@ function rocks_dev.setup(user_configuration)
     end
 
     if errors_found then
-        vim.notify("Issues while loading rocks-dev configs. Run :Rocks log for more info.", vim.log.levels.WARN)
+        vim.notify("Issues while loading rocks-dev configs. Run ':Rocks log' for more info.", vim.log.levels.WARN)
     end
 end
 
