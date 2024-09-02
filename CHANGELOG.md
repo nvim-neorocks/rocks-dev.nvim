@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.5.0...v1.6.0) (2024-09-02)
+
+
+### Features
+
+* **experimental:** recognise rocks-dev packages as dependencies ([#33](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/33)) ([100f4f8](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/100f4f83c82463db52e6dcbb2b210f2c29308a11))
+
 ## [1.5.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.4.0...v1.5.0) (2024-08-19)
 
 
