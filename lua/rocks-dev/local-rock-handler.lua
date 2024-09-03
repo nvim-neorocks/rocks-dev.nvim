@@ -1,9 +1,10 @@
 local api = require("rocks.api")
+local rockspec = require("rocks-dev.rockspec")
 local nio = require("nio")
 
 local rock_handler = {}
 
----@class DevRockSpec: RockSpec
+---@class rocks-dev.DevRockSpec: RockSpec
 ---@field name string Name of the plugin.
 ---@field dir string
 
@@ -14,7 +15,7 @@ local ROCKS_DEV_VERSION = "rocksdev"
 function rock_handler.get_sync_callback(rock)
     local user_configuration = api.get_rocks_toml()
     if rock.dir or (rock.dev and user_configuration.dev.path) then
-        ---@cast rock DevRockSpec
+        ---@cast rock rocks-dev.DevRockSpec
         ---@param on_progress fun(message: string)
         ---@param _ fun(message: string) on_error
         ---@param on_success? fun(opts: rock_handler.on_success.Opts)
@@ -38,6 +39,7 @@ function rock_handler.get_sync_callback(rock)
                         name = rock.name,
                         version = ROCKS_DEV_VERSION,
                     },
+                    dependencies = rockspec.get_dependencies(rock),
                 })
             end
 
