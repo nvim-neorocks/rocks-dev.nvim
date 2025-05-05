@@ -20,8 +20,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -33,7 +33,7 @@
     neorocks,
     gen-luarc,
     flake-parts,
-    pre-commit-hooks,
+    git-hooks,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -71,7 +71,7 @@
           ];
         };
 
-        type-check-nightly = pre-commit-hooks.lib.${system}.run {
+        type-check-nightly = git-hooks.lib.${system}.run {
           src = self;
           hooks = {
             lua-ls = {
@@ -81,7 +81,7 @@
           };
         };
 
-        pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        git-hooks-check = git-hooks.lib.${system}.run {
           src = self;
           hooks = {
             alejandra.enable = true;
@@ -94,11 +94,11 @@
         devShell = pkgs.integration-nightly.overrideAttrs (oa: {
           name = "rocks-dev.nvim devShell";
           shellHook = ''
-            ${pre-commit-check.shellHook}
+            ${git-hooks-check.shellHook}
             ln -fs ${pkgs.luarc-to-json luarc} .luarc.json
           '';
           buildInputs =
-            self.checks.${system}.pre-commit-check.enabledPackages
+            self.checks.${system}.git-hooks-check.enabledPackages
             ++ (with pkgs; [
               lua-language-server
             ])
@@ -119,7 +119,7 @@
 
         checks = {
           inherit
-            pre-commit-check
+            git-hooks-check
             type-check-nightly
             ;
           inherit
