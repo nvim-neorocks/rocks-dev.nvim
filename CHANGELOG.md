@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.7.0...v1.8.0) (2025-05-05)
+
+
+### Features
+
+* help file ([#41](https://github.com/nvim-neorocks/rocks-dev.nvim/issues/41)) ([32695e3](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/32695e3213a1f4fb47dbdde2165aa6fc61907afe))
+
 ## [1.7.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.6.0...v1.7.0) (2024-09-03)
 
 
