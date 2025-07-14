@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.8.0...v1.8.1) (2025-07-14)
+
+
+### Bug Fixes
+
+* **rockspec:** restrict lua version to 5.1 ([82950fd](https://github.com/nvim-neorocks/rocks-dev.nvim/commit/82950fd61e5373e0a25b33e6bceb412d0ee56a96))
+
 ## [1.8.0](https://github.com/nvim-neorocks/rocks-dev.nvim/compare/v1.7.0...v1.8.0) (2025-05-05)
 
 
